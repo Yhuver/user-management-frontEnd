@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h3>Usuarios</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+      <thead>
+        <tr class="text-center">
+          <th>Nombre</th>
+          <th>Dependencia</th>
+          <th>Fecha De Nacimiento</th>
+          <th>Estado</th>
+          <th>Tareas</th>
+          <th>Perfiles</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of listUsers" class="text-center">
+          <td>{{user.nameUser}}</td>
+          <td>{{user.nameDependency}}</td>
+          <td>{{user.birthDate}}</td>
+          <td>{{user.status}}</td>
+          <td>
+            <button class="btn btn-info">Ver Más</button>
+          </td>
+          <td>
+            <button class="btn btn-info">Ver Más</button>
+          </td>
+          <td>
+            <button class="btn btn-warning" style="margin-right: 4px;">Editar</button>
+            <button class="btn btn-danger">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
