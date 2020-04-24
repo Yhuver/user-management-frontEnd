@@ -11,11 +11,11 @@ export class AppComponent {
 
   constructor(private router:Router){}
 
-  listar(){
+  managementUsers(){
     this.router.navigate(['listar']);
   }
 
-  registrar(){
-    this.router.navigate(['add']);
+  managementTasks(){
+    this.router.navigate(['listTask']);
   }
 }

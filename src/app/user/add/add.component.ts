@@ -41,10 +41,11 @@ export class AddComponent implements OnInit {
      this.service.createUsers(this.user)
     .subscribe(data=>{
       if(data.message=="success"){
-        alert("Se registro con exito la persona");
+        alert("Se registro con exito el usuario");
+        this.router.navigate(["listar"]);
       }
-      this.router.navigate(["listar"]);
-
+    },error=>{
+      alert(error.message)
     })
   }
 

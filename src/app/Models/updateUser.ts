@@ -1,4 +1,4 @@
-export class CreateUser{
+export class UpdateUser{
 
 	name:string;
 
@@ -6,6 +6,8 @@ export class CreateUser{
 
   idDependency:number;
 
-	status:boolean;
+  status:boolean;
+
+  idUser:number;
 
 }

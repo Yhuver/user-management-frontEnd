@@ -1,7 +1,10 @@
 <div class="container">
   <div class="card">
     <div class="card-header">
-      <h3>Lista De Usuarios</h3>
+      <h3 style="display: inline-block;" >Lista De Usuarios</h3>
+      <div style="float: right;"><b>Registrar Usuario</b>
+      <button (click)="register()" class="btn btn-success btn-circle btn-circle-sm m-1"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      </div>
     </div>
     <div class="card-body">
       <table class="table table-hover">
@@ -33,12 +36,70 @@
             <button class="btn btn-info">Ver Más</button>
           </td>
           <td>
-            <button class="btn btn-warning" style="margin-right: 4px;">Editar</button>
-            <button class="btn btn-danger">Eliminar</button>
+            <button class="btn btn-warning" style="margin-right: 4px;" (click)="initDisplayUpdate(user)" data-toggle="modal" data-target="#editModal">Editar</button>
+            <button class="btn btn-danger" (click)="delete(user.idUser)">Eliminar</button>
           </td>
         </tr>
       </tbody>
     </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div *ngIf="displayUpdate" class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Editar Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+
+        <div class="container">
+          <div class="card">
+            <div class="card-header">
+              <h3>Editar Usuario</h3>
+            </div>
+            <div class="card-body">
+              <form >
+                <div class="form-group">
+                  <label>Nombre:</label>
+                  <input required type="text" class="form-control" [(ngModel)]= "user.name" name="name" />
+                </div>
+                <div class="form-group">
+                  <label>Fecha de Nacimiento:</label>
+                  <input required type="date" min="1900-01-01" max="2005-12-31" class="form-control" [(ngModel)]= "user.birthDate" name="birthDate" />
+                </div>
+                <div class="form-group">
+                  <select required class="browser-default custom-select" [(ngModel)]="user.idDependency" name="dependency">
+                    <option disabled selected>Seleccione Dependencia</option>
+                    <option *ngFor="let dependency of listDependency" value="{{dependency.idDependency}}">{{dependency.nameDependency}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <div class="custom-control custom-switch">
+                    <input required name="status" type="checkbox" class="custom-control-input" id="customSwitch2" [(ngModel)]= "user.status" />
+                    <label class="custom-control-label" for="customSwitch2">Estado</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="updateCancel()">Cancelar</button>
+        <button type="button" data-dismiss="modal" (click)="update()" class="btn btn-danger">Guardar</button>
+      </div>
     </div>
   </div>
 </div>

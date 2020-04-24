@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ListUser } from '../Models/listUser';
 import { CreateUser } from '../Models/createUser';
+import { UpdateUser } from '../Models/updateUser';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,16 @@ export class ServiceService {
 
   createUsers(user:CreateUser){
     return this.http.post<any>(this.Url+'user',user);
+  }
+
+  updateUser(user:UpdateUser){
+    return this.http.put<any>(this.Url+'user',user);
+  }
+
+  deleteUser(idUser:number){
+    return this.http.delete<any>(this.Url+'user', {
+      headers: new HttpHeaders({ 'idUser': ''+idUser })
+  });
   }
 
   getDependency(){

@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddComponent } from './user/add/add.component';
 import { ListComponent } from './user/list/list.component';
-import { EditComponent } from './user/edit/edit.component';
+import { AddComponent as AddComponentTask} from './task/add/add.component';
+import { ListComponent as ListComponentTask} from './task/list/list.component';
 import { FormsModule } from '@angular/forms';
 import { ServiceService } from './Servicer/service.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     AddComponent,
     ListComponent,
-    EditComponent
+    AddComponentTask,
+    ListComponentTask
   ],
   imports: [
     BrowserModule,
