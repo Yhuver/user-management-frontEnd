@@ -38,7 +38,7 @@ export class AddComponent implements OnInit {
         this.router.navigate(["listTask"]);
       }
     },error=>{
-      alert(error.message)
+      alert(error.error.message)
     })
   }
 

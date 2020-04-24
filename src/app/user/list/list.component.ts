@@ -140,8 +140,9 @@ export class ListComponent implements OnInit {
 
 
   registerProfileUser(idProfile){
-    if(idProfile<0){
-      alert("por favor seleccione un perfil si desea asosiar a usuario")
+    console.log(idProfile)
+    if(idProfile<1||idProfile==null){
+     return alert("por favor seleccione un perfil si desea asosiar a usuario")
     }
     if(this.userIdSelect>0){
       this.service.createProfileUser({"idProfile":idProfile, "idUser":this.userIdSelect}).
@@ -208,8 +209,8 @@ export class ListComponent implements OnInit {
 
 
   registerTaskUser(idTask){
-    if(idTask<0){
-      alert("por favor para seleccione una tarea si desea asosiar a usuario")
+    if(idTask<1||idTask==null){
+      return  alert("por favor para seleccione una tarea si desea asosiar a usuario")
     }
     if(this.userIdSelect>0){
       this.service.createTaskUser({"idTask":idTask, "idUser":this.userIdSelect}).

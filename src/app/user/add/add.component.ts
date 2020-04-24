@@ -45,7 +45,7 @@ export class AddComponent implements OnInit {
         this.router.navigate(["listar"]);
       }
     },error=>{
-      alert(error.message)
+      alert(error.error.message)
     })
   }
 
