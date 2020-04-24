@@ -15,6 +15,14 @@ export class ListComponent implements OnInit {
   listDependency:any[];
   displayUpdate:boolean=false;
   user:UpdateUser=new UpdateUser();
+  displayMoreTask:boolean=false;
+
+  userIdSelect:number;
+  listTaskUser:any[];
+  listTask:any[];
+  listProfileUser:any[];
+  listProfile:any[];
+  displayMoreProfile:boolean=false;
 
   constructor(private service:ServiceService,
     private router:Router) { }
@@ -29,7 +37,7 @@ export class ListComponent implements OnInit {
       this.listUsers=data.data;
       console.log(this.listUsers)
     },error=>{
-      alert(error.message)
+      alert(error.error.message)
     })
 
   }
@@ -74,7 +82,7 @@ export class ListComponent implements OnInit {
         this.loadListUser();
       }
     },error=>{
-      alert(error.message)
+      alert(error.error.message)
       this.displayUpdate=false;
       this.user=new UpdateUser();
     })
@@ -88,7 +96,7 @@ export class ListComponent implements OnInit {
         this.loadListUser();
       }
     },error=>{
-      alert(error.message)
+      alert(error.error.message)
     }
     )
   }
@@ -97,5 +105,140 @@ export class ListComponent implements OnInit {
     this.router.navigate(["add"]);
   }
 
+
+  loadListProfileUser(idUser){
+    this.service.listProfileByIdUser(idUser)
+    .subscribe(data=>{
+      this.listProfileUser=data.data;
+    },error=>{
+      alert(error.error.message)
+    })
+  }
+
+  listProfileExceptByUser(idUser){
+    this.service.listProfileExceptByUser(idUser)
+    .subscribe(data=>{
+      this.listProfile=data.data;
+    },error=>{
+      alert(error.error.message)
+    })
+  }
+
+
+  initDisplayMoreProfile(user:ListUser){
+    this.displayMoreProfile=true;
+    this.listProfileExceptByUser(user.idUser);
+    this.loadListProfileUser(user.idUser);
+    this.userIdSelect=user.idUser;
+  }
+
+
+  updateCancelMoreProfile(){
+    this.displayMoreProfile=false;
+    this.userIdSelect=0;
+  }
+
+
+  registerProfileUser(idProfile){
+    if(idProfile<0){
+      alert("por favor seleccione un perfil si desea asosiar a usuario")
+    }
+    if(this.userIdSelect>0){
+      this.service.createProfileUser({"idProfile":idProfile, "idUser":this.userIdSelect}).
+      subscribe(data=>{
+        if(data.message=="success"){
+          alert("Se asocio un perfil al usuario con exito");
+          this.listProfileExceptByUser(this.userIdSelect);
+          this.loadListProfileUser(this.userIdSelect);
+        }
+      },error=>{
+        alert(error.error.message)
+      }
+      )
+
+    }
+  }
+
+  deleteProfileUser(idProfileUser){
+    this.service.deleteProfileUser(idProfileUser).
+    subscribe(data=>{
+      if(data.message=="success"){
+        alert("Se elimino con exito la relacion entre perfil y usuario");
+        this.listProfileExceptByUser(this.userIdSelect);
+        this.loadListProfileUser(this.userIdSelect);
+      }
+    },error=>{
+      alert(error.error.message)
+    }
+    )
+  }
+
+
+  loadListTaskUser(idUser){
+    this.service.listTaskByIdUser(idUser)
+    .subscribe(data=>{
+      this.listTaskUser=data.data;
+    },error=>{
+      alert(error.error.message)
+    })
+  }
+
+  listTaskExceptByUser(idUser){
+    this.service.listTaskExceptByUser(idUser)
+    .subscribe(data=>{
+      this.listTask=data.data;
+    },error=>{
+      alert(error.error.message)
+    })
+  }
+
+
+  initDisplayMoreTask(user:ListUser){
+    this.displayMoreTask=true;
+    this.listTaskExceptByUser(user.idUser);
+    this.loadListTaskUser(user.idUser);
+    this.userIdSelect=user.idUser;
+  }
+
+
+  updateCancelMoreTask(){
+    this.displayMoreTask=false;
+    this.userIdSelect=0;
+  }
+
+
+  registerTaskUser(idTask){
+    if(idTask<0){
+      alert("por favor para seleccione una tarea si desea asosiar a usuario")
+    }
+    if(this.userIdSelect>0){
+      this.service.createTaskUser({"idTask":idTask, "idUser":this.userIdSelect}).
+      subscribe(data=>{
+        if(data.message=="success"){
+          alert("Se asocio la tarea al usuario con exito");
+          this.listTaskExceptByUser(this.userIdSelect);
+          this.loadListTaskUser(this.userIdSelect);
+        }
+      },error=>{
+        alert(error.error.message)
+      }
+      )
+
+    }
+  }
+
+  deleteTaskUser(idTaskUser){
+    this.service.deleteTaskUser(idTaskUser).
+    subscribe(data=>{
+      if(data.message=="success"){
+        alert("Se elimino con exito la relacion entre tarea y usuario");
+        this.listTaskExceptByUser(this.userIdSelect);
+        this.loadListTaskUser(this.userIdSelect);
+      }
+    },error=>{
+      alert(error.error.message)
+    }
+    )
+  }
 
 }

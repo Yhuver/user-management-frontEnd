@@ -53,8 +53,52 @@ export class ServiceService {
     return this.http.delete<any>(this.Url+'task', {
       headers: new HttpHeaders({ 'idTask': ''+idTask })
   });
+}
+
+  listTaskByIdUser(idUser:number){
+    return this.http.get<any>(this.Url+'taskUser', {
+      headers: new HttpHeaders({ 'idUser': ''+idUser })
+  });
   }
 
+  listTaskExceptByUser(idUser:number){
+    return this.http.get<any>(this.Url+'task/exceptByUser', {
+      headers: new HttpHeaders({ 'idUser': ''+idUser })
+  });
+  }
 
+  createTaskUser(taskUser:any){
+    return this.http.post<any>(this.Url+'taskUser',taskUser);
+  }
+
+  deleteTaskUser(idTaskUser:number){
+    return this.http.delete<any>(this.Url+'taskUser', {
+      headers: new HttpHeaders({ 'idTaskUser': ''+idTaskUser })
+  });
+}
+
+
+
+listProfileByIdUser(idUser:number){
+  return this.http.get<any>(this.Url+'profileUser', {
+    headers: new HttpHeaders({ 'idUser': ''+idUser })
+});
+}
+
+listProfileExceptByUser(idUser:number){
+  return this.http.get<any>(this.Url+'profile/exceptByUser', {
+    headers: new HttpHeaders({ 'idUser': ''+idUser })
+});
+}
+
+createProfileUser(profileUser:any){
+  return this.http.post<any>(this.Url+'profileUser',profileUser);
+}
+
+deleteProfileUser(idProfileUser:number){
+  return this.http.delete<any>(this.Url+'profileUser', {
+    headers: new HttpHeaders({ 'idProfileUser': ''+idProfileUser })
+});
+}
 
 }

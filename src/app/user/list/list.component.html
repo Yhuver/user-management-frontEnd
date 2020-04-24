@@ -30,10 +30,10 @@
               <label class="custom-control-label" for="customSwitch1"></label>
             </div>
           <td>
-            <button class="btn btn-info">Ver Más</button>
+            <button class="btn btn-info" data-toggle="modal" (click)="initDisplayMoreTask(user)" data-target="#moreModalTask">Ver Más</button>
           </td>
           <td>
-            <button class="btn btn-info">Ver Más</button>
+            <button class="btn btn-info" data-toggle="modal" (click)="initDisplayMoreProfile(user)" data-target="#moreModalProfile">Ver Más</button>
           </td>
           <td>
             <button class="btn btn-warning" style="margin-right: 4px;" (click)="initDisplayUpdate(user)" data-toggle="modal" data-target="#editModal">Editar</button>
@@ -47,15 +47,12 @@
 </div>
 
 
-<!-- Modal -->
-<div *ngIf="displayUpdate" class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<!-- Modal Acualizar-->
+<div *ngIf="displayUpdate" data-backdrop="static" class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Editar Usuario</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-body">
 
@@ -99,6 +96,127 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="updateCancel()">Cancelar</button>
         <button type="button" data-dismiss="modal" (click)="update()" class="btn btn-danger">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal para ver mas tareas-->
+<div *ngIf="displayMoreTask" data-backdrop="static" class="modal fade bd-example-modal-lg" id="moreModalTask" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Asociar Tareas A Usuario</h5>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="container">
+          <div class="card">
+            <div class="card-header" ngVar="0 as idTask">
+            <select class="custom-select" style="width: 50%; " [(ngModel)]="idTask">
+              <option disabled selected value="0">Seleccione Tarea que desea agregar</option>
+              <option *ngFor="let task of listTask" value="{{task.idTask}}">{{task.nameTask}}</option>
+            </select>
+
+            <button (click)="registerTaskUser(idTask)" class="btn btn-outline-primary btn-circle btn-circle-sm m-1"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <b>Asociar Tarea</b>
+          </div>
+            <div class="card-body">
+
+              <table class="table table-hover">
+                <thead>
+                  <tr class="text-center">
+                    <th>Nombre</th>
+                    <th>Duración</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Eliminar tarea asociada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let task of listTaskUser" class="text-center">
+                    <td>{{task.nameTask}}</td>
+                    <td>{{task.durationTask}}</td>
+                    <td>{{task.descriptionTask}}</td>
+                    <td>
+                      <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1" [checked]="task.statusTask" disabled/>
+                        <label class="custom-control-label" for="customSwitch1"></label>
+                      </div>
+                    <td>
+                      <button class="btn btn-danger" (click)="deleteTaskUser(task.idTaskUser)">Eliminar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="updateCancelMoreTask()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal para ver mas perfil-->
+<div *ngIf="displayMoreProfile" data-backdrop="static" class="modal fade bd-example-modal-lg" id="moreModalProfile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Asociar Perfiles A Usuario</h5>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="container">
+          <div class="card">
+            <div class="card-header" ngVar="0 as idProfile">
+            <select class="custom-select" style="width: 50%; " [(ngModel)]="idProfile">
+              <option disabled selected value="0">Seleccione Perfil que desea agregar</option>
+              <option *ngFor="let profile of listProfile" value="{{profile.idProfile}}">{{profile.nameProfile}}</option>
+            </select>
+
+            <button (click)="registerProfileUser(idProfile)" class="btn btn-outline-primary btn-circle btn-circle-sm m-1"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <b>Asociar Tarea</b>
+          </div>
+            <div class="card-body">
+
+              <table class="table table-hover">
+                <thead>
+                  <tr class="text-center">
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Eliminar perfil asociada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let profile of listProfileUser" class="text-center">
+                    <td>{{profile.nameProfile}}</td>
+                    <td>{{profile.descriptionProfile}}</td>
+                    <td>
+                      <button class="btn btn-danger" (click)="deleteProfileUser(profile.idProfileUser)">Eliminar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="updateCancelMoreProfile()">Cancelar</button>
       </div>
     </div>
   </div>
