@@ -1,1 +1,97 @@
-<p>list works!</p>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h3 style="display: inline-block;" >Lista De Tareas</h3>
+      <div style="float: right;"><b>Registrar Tarea</b>
+      <button (click)="register()" class="btn btn-success btn-circle btn-circle-sm m-1"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+      <thead>
+        <tr class="text-center">
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Duración</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of listTasks" class="text-center">
+          <td>{{task.nameTask}}</td>
+          <td>{{task.descriptionTask}}</td>
+          <td>{{task.durationTask}}</td>
+          <td>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch1" [checked]="task.statusTask" disabled/>
+              <label class="custom-control-label" for="customSwitch1"></label>
+            </div>
+          <td>
+            <button class="btn btn-warning" style="margin-right: 4px;" (click)="initDisplayUpdate(task)" data-toggle="modal" data-target="#editModal">Editar</button>
+            <button class="btn btn-danger" (click)="delete(task.idTask)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div *ngIf="displayUpdate" class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Editar Tarea</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+
+        <div class="container">
+          <div class="card">
+            <div class="card-header">
+              <h3>Registro De Tareas</h3>
+            </div>
+            <div class="card-body">
+              <form >
+                <div class="form-group">
+                  <label>Nombre:</label>
+                  <input required type="text" class="form-control" [(ngModel)]= "task.name" name="name" />
+                </div>
+                <div class="form-group">
+                  <label>Descripción</label>
+                  <input required type="text" class="form-control" [(ngModel)]= "task.description" name="description" />
+                </div>
+                <div class="form-group">
+                  <label>Duración en Horas:</label>
+                  <input required type="number" class="form-control" [(ngModel)]= "task.duration" name="duration" />
+                </div>
+                <div class="form-group">
+                  <div class="custom-control custom-switch">
+                    <input required name="status" type="checkbox" class="custom-control-input" id="customSwitch2" [(ngModel)]= "task.status" />
+                    <label class="custom-control-label" for="customSwitch2">Estado</label>
+                  </div>
+                </div>
+                <button type="submit" (click)="save()" class="btn btn-danger">Guardar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="updateCancel()">Cancelar</button>
+        <button type="button" data-dismiss="modal" (click)="update()" class="btn btn-danger">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

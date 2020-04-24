@@ -1,1 +1,30 @@
-<p>add works!</p>
+<div class="container col-md-6">
+  <div class="card">
+    <div class="card-header">
+      <h3>Registro De Tareas</h3>
+    </div>
+    <div class="card-body">
+      <form >
+        <div class="form-group">
+          <label>Nombre:</label>
+          <input required type="text" class="form-control" [(ngModel)]= "task.name" name="name" />
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <input required type="text" class="form-control" [(ngModel)]= "task.description" name="description" />
+        </div>
+        <div class="form-group">
+          <label>Duración en Horas:</label>
+          <input required type="number" class="form-control" [(ngModel)]= "task.duration" name="duration" />
+        </div>
+        <div class="form-group">
+          <div class="custom-control custom-switch">
+            <input required name="status" type="checkbox" class="custom-control-input" id="customSwitch1" [(ngModel)]= "task.status" />
+            <label class="custom-control-label" for="customSwitch1">Estado</label>
+          </div>
+        </div>
+        <button type="submit" (click)="save()" class="btn btn-danger">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>

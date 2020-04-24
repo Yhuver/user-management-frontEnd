@@ -1,10 +1,10 @@
 export class UpdateTask{
 
-	idTask:string;
+	idTask:number;
 
   name: string;
 
-  description:number;
+  description:string;
 
   status:boolean;
 

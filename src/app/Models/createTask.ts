@@ -4,8 +4,8 @@ export class CreateTask{
 
   description: string;
 
-  status:number;
+  status:boolean;
 
-	duration:boolean;
+	duration:number;
 
 }
